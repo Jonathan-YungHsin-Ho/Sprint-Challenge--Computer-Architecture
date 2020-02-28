@@ -31,8 +31,8 @@ PRA = 0b01001000
 PRN = 0b01000111
 PUSH = 0b01000101
 RET = 0b00010001
-# SHL = 0b10101100
-# SHR = 0b10101101
+SHL = 0b10101100
+SHR = 0b10101101
 ST = 0b10000100
 SUB = 0b10100001
 XOR = 0b10101011
@@ -85,8 +85,8 @@ class CPU:
             MUL: self.alu_handle_mul,
             NOT: self.alu_handle_not,
             OR: self.alu_handle_or,
-            # SHL: self.alu_handle_shl,
-            # SHR: self.alu_handle_shr,
+            SHL: self.alu_handle_shl,
+            SHR: self.alu_handle_shr,
             SUB: self.alu_handle_sub,
             XOR: self.alu_handle_xor,
         }
@@ -389,13 +389,13 @@ class CPU:
         # print(f'OR R{reg_a}, R{reg_b}')
         self.reg[reg_a] |= self.reg[reg_b]
 
-    # def alu_handle_shl(self, a, b):
-    #     # Shift value in registerA left by number of bits specified in registerB, filling low bits with 0
-    #     pass
+    def alu_handle_shl(self, reg_a, reg_b):
+        # print(f'SHL R{reg_a}, R{reg_b}')
+        self.reg[reg_a] <<= self.reg[reg_b]
 
-    # def alu_handle_shr(self, a, b):
-    #     # Shift value in registerA right by number of bits specified in registerB, filling low bits with 0
-    #     pass
+    def alu_handle_shr(self, reg_a, reg_b):
+        # print(f'SHR R{reg_a}, R{reg_b}')
+        self.reg[reg_a] >>= self.reg[reg_b]
 
     def alu_handle_sub(self, reg_a, reg_b):
         # print(f'SUB R{reg_a}, R{reg_b}')
