@@ -3,6 +3,7 @@ from datetime import datetime
 import msvcrt
 
 ADD = 0b10100000
+ADDI = 0b10100101
 AND = 0b10101000
 CALL = 0b1010000
 CMP = 0b10100111
@@ -76,6 +77,7 @@ class CPU:
             RET: self.handle_ret,
             ST: self.handle_st,
             ADD: self.alu_handle_add,
+            ADDI: self.alu_handle_addi,
             AND: self.alu_handle_and,
             CMP: self.alu_handle_cmp,
             DEC: self.alu_handle_dec,
@@ -291,9 +293,9 @@ class CPU:
         value = self.ram_read(memory_addr)
         self.reg[reg_a] = value
 
-    def handle_ldi(self, reg_a, reg_b):
-        # print(f'LDI R{reg_a}, {reg_b}')
-        self.reg[reg_a] = reg_b
+    def handle_ldi(self, reg_num, immediate):
+        # print(f'LDI R{reg_num}, {immediate}')
+        self.reg[reg_num] = immediate
 
     def handle_nop(self, *_):
         # print(f'NOP')
@@ -339,6 +341,10 @@ class CPU:
     def alu_handle_add(self, reg_a, reg_b):
         # print(f'ADD R{reg_a}, R{reg_b}')
         self.reg[reg_a] += self.reg[reg_b]
+
+    def alu_handle_addi(self, reg_num, immediate):
+        # print(f'ADDI R{reg_num}, R{immediate}')
+        self.reg[reg_num] += immediate
 
     def alu_handle_and(self, reg_a, reg_b):
         # print(f'AND R{reg_a}, R{reg_b}')
