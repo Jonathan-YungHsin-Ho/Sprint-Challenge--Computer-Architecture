@@ -3,7 +3,7 @@ from datetime import datetime
 import msvcrt
 
 ADD = 0b10100000
-# AND = 0b10101000
+AND = 0b10101000
 CALL = 0b1010000
 CMP = 0b10100111
 DEC = 0b01100110
@@ -76,7 +76,7 @@ class CPU:
             RET: self.handle_ret,
             ST: self.handle_st,
             ADD: self.alu_handle_add,
-            # AND: self.alu_handle_and,
+            AND: self.alu_handle_and,
             CMP: self.alu_handle_cmp,
             DEC: self.alu_handle_dec,
             # DIV: self.alu_handle_div,
@@ -334,15 +334,15 @@ class CPU:
         address = self.reg[reg_a]
         self.ram_write(val, address)
 
-    # ALU Instructions
+    # ALU Operations
 
     def alu_handle_add(self, reg_a, reg_b):
         # print(f'ADD R{reg_a}, R{reg_b}')
         self.reg[reg_a] += self.reg[reg_b]
 
-    # def alu_handle_and(self, a, b):
-    #     # Perform bitwise-AND on value in register
-    #     pass
+    def alu_handle_and(self, reg_a, reg_b):
+        # Perform bitwise-AND on value in register
+        self.reg[reg_a] &= self.reg[reg_b]
 
     def alu_handle_cmp(self, reg_a, reg_b):
         # print(f'CMP R{reg_a}, R{reg_b}')
