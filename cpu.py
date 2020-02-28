@@ -268,7 +268,10 @@ class CPU:
 
     def handle_jne(self, reg_num, _):
         # print(f'JNE R{reg_num}')
-        pass
+        if self.fl & 1 == 0:
+            self.handle_jmp(reg_num, _)
+        else:
+            self.pc += 2
 
     def handle_ld(self, reg_a, reg_b):
         # print(f'LD R{reg_a}, R{reg_b}')
