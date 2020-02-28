@@ -77,7 +77,7 @@ class CPU:
             ST: self.handle_st,
             ADD: self.alu_handle_add,
             # AND: self.alu_handle_and,
-            # CMP: self.alu_handle_cmp,
+            CMP: self.alu_handle_cmp,
             DEC: self.alu_handle_dec,
             # DIV: self.alu_handle_div,
             INC: self.alu_handle_inc,
@@ -326,9 +326,14 @@ class CPU:
     #     # Perform bitwise-AND on value in register
     #     pass
 
-    # def alu_handle_cmp(self, reg_a, reg_b):
-    #     # print(f'CMP R{reg_a}, R{reg_b}')
-    #     pass
+    def alu_handle_cmp(self, reg_a, reg_b):
+        # print(f'CMP R{reg_a}, R{reg_b}')
+        if self.reg[reg_a] == self.reg[reg_b]:
+            self.fl = 1
+        elif self.reg[reg_a] < self.reg[reg_b]:
+            self.fl = 0b100
+        elif self.reg[reg_a] > self.reg[reg_b]:
+            self.fl = 0b10
 
     def alu_handle_dec(self, reg_num, _):
         # print(f'DEC R{reg_num}')
