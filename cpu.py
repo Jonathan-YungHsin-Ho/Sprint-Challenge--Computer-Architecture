@@ -7,7 +7,7 @@ AND = 0b10101000
 CALL = 0b1010000
 CMP = 0b10100111
 DEC = 0b01100110
-# DIV = 0b10100011
+DIV = 0b10100011
 HLT = 0b00000001
 INC = 0b01100101
 # INT = 0b01010010
@@ -21,7 +21,7 @@ JMP = 0b01010100
 JNE = 0b01010110
 LD = 0b10000011
 LDI = 0b10000010
-# MOD = 0b10100100
+MOD = 0b10100100
 MUL = 0b10100010
 NOP = 0b00000000
 NOT = 0b01101001
@@ -79,9 +79,9 @@ class CPU:
             AND: self.alu_handle_and,
             CMP: self.alu_handle_cmp,
             DEC: self.alu_handle_dec,
-            # DIV: self.alu_handle_div,
+            DIV: self.alu_handle_div,
             INC: self.alu_handle_inc,
-            # MOD: self.alu_handle_mod,
+            MOD: self.alu_handle_mod,
             MUL: self.alu_handle_mul,
             NOT: self.alu_handle_not,
             OR: self.alu_handle_or,
@@ -357,23 +357,23 @@ class CPU:
         # print(f'DEC R{reg_num}')
         self.reg[reg_num] -= 1
 
-    # def alu_handle_div(self, a, b):
-    #     if self.reg[reg_b] == 0:
-    #         # Print error message and halt
-    #         pass
-    #     else:
-    #         self.reg[reg_a] /= self.reg[reg_b]
+    def alu_handle_div(self, reg_a, reg_b):
+        if not self.reg[reg_b]:
+            print('ERROR: Cannot divide by 0')
+            self.handle_hlt()
+        else:
+            self.reg[reg_a] /= self.reg[reg_b]
 
     def alu_handle_inc(self, reg_num, _):
         # print(f'INC R{reg_num}')
         self.reg[reg_num] += 1
 
-    # def alu_handle_mod(self, a, b):
-    #     if self.reg[reg_b] == 0:
-    #         # Print error message and halt
-    #         pass
-    #     else:
-    #         self.reg[reg_a] %= self.reg[reg_b]
+    def alu_handle_mod(self, reg_a, reg_b):
+        if not self.reg[reg_b]:
+            print('ERROR: Cannot divide by 0')
+            self.handle_hlt()
+        else:
+            self.reg[reg_a] %= self.reg[reg_b]
 
     def alu_handle_mul(self, reg_a, reg_b):
         # print(f'MUL R{reg_a}, R{reg_b}')
