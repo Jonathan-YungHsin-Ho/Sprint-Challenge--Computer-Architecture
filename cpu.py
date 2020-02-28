@@ -59,13 +59,13 @@ class CPU:
             HLT: self.handle_hlt,
             # INT: self.handle_int,
             IRET: self.handle_iret,
-            # JEQ: self.handle_jeq,
+            JEQ: self.handle_jeq,
             # JGE: self.handle_jge,
             # JGT: self.handle_jgt,
             # JLE: self.handle_jle,
             # JLT: self.handle_jlt,
             JMP: self.handle_jmp,
-            # JNE: self.handle_jne,
+            JNE: self.handle_jne,
             LD: self.handle_ld,
             LDI: self.handle_ldi,
             NOP: self.handle_nop,
@@ -239,9 +239,12 @@ class CPU:
         # Re-enable interrupts
         self.interrupts_enabled = True
 
-    # def handle_jeq(self, reg_num, _):
-    #     # print(f'JEQ R{reg_num}')
-    #     pass
+    def handle_jeq(self, reg_num, _):
+        # print(f'JEQ R{reg_num}')
+        if self.fl & 1 == 1:
+            self.handle_jmp(reg_num, _)
+        else:
+            self.pc += 2
 
     # def handle_jge(self, reg_num, _):
     #     # print(f'JGE R{reg_num}')
@@ -263,9 +266,9 @@ class CPU:
         # print(f'JMP R{reg_num}')
         self.pc = self.reg[reg_num]
 
-    # def handle_jne(self, reg_num, _):
-    #     # print(f'JNE R{reg_num}')
-    #     pass
+    def handle_jne(self, reg_num, _):
+        # print(f'JNE R{reg_num}')
+        pass
 
     def handle_ld(self, reg_a, reg_b):
         # print(f'LD R{reg_a}, R{reg_b}')
