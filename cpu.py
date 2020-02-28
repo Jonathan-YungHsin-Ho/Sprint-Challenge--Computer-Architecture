@@ -13,10 +13,10 @@ INC = 0b01100101
 # INT = 0b01010010
 IRET = 0b00010011
 JEQ = 0b01010101
-# JGE = 0b01011010
-# JGT = 0b01010111
-# JLE = 0b01011001
-# JLT = 0b01011000
+JGE = 0b01011010
+JGT = 0b01010111
+JLE = 0b01011001
+JLT = 0b01011000
 JMP = 0b01010100
 JNE = 0b01010110
 LD = 0b10000011
@@ -60,10 +60,10 @@ class CPU:
             # INT: self.handle_int,
             IRET: self.handle_iret,
             JEQ: self.handle_jeq,
-            # JGE: self.handle_jge,
-            # JGT: self.handle_jgt,
-            # JLE: self.handle_jle,
-            # JLT: self.handle_jlt,
+            JGE: self.handle_jge,
+            JGT: self.handle_jgt,
+            JLE: self.handle_jle,
+            JLT: self.handle_jlt,
             JMP: self.handle_jmp,
             JNE: self.handle_jne,
             LD: self.handle_ld,
@@ -241,26 +241,26 @@ class CPU:
 
     def handle_jeq(self, reg_num, _):
         # print(f'JEQ R{reg_num}')
-        if self.fl & 1 == 1:
+        if self.fl & 1:
             self.handle_jmp(reg_num, _)
         else:
             self.pc += 2
 
-    # def handle_jge(self, reg_num, _):
-    #     # print(f'JGE R{reg_num}')
-    #     pass
+    def handle_jge(self, reg_num, _):
+        # print(f'JGE R{reg_num}')
+        pass
 
-    # def handle_jgt(self, reg_num, _):
-    #     # print(f'JGT R{reg_num}')
-    #     pass
+    def handle_jgt(self, reg_num, _):
+        # print(f'JGT R{reg_num}')
+        pass
 
-    # def handle_jle(self, reg_num, _):
-    #     # print(f'JLE R{reg_num}')
-    #     pass
+    def handle_jle(self, reg_num, _):
+        # print(f'JLE R{reg_num}')
+        pass
 
-    # def handle_jlt(self, a, b):
-    #     # print(f'JLT R{reg_num}')
-    #     pass
+    def handle_jlt(self, a, b):
+        # print(f'JLT R{reg_num}')
+        pass
 
     def handle_jmp(self, reg_num, _):
         # print(f'JMP R{reg_num}')
@@ -268,7 +268,7 @@ class CPU:
 
     def handle_jne(self, reg_num, _):
         # print(f'JNE R{reg_num}')
-        if self.fl & 1 == 0:
+        if not self.fl & 1:
             self.handle_jmp(reg_num, _)
         else:
             self.pc += 2
