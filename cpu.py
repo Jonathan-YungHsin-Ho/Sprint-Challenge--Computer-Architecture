@@ -25,7 +25,7 @@ LDI = 0b10000010
 MUL = 0b10100010
 NOP = 0b00000000
 # NOT = 0b01101001
-# OR = 0b10101010
+OR = 0b10101010
 POP = 0b01000110
 PRA = 0b01001000
 PRN = 0b01000111
@@ -341,7 +341,7 @@ class CPU:
         self.reg[reg_a] += self.reg[reg_b]
 
     def alu_handle_and(self, reg_a, reg_b):
-        # Perform bitwise-AND on value in register
+        # print(f'AND R{reg_a}, R{reg_b}')
         self.reg[reg_a] &= self.reg[reg_b]
 
     def alu_handle_cmp(self, reg_a, reg_b):
@@ -383,9 +383,9 @@ class CPU:
     #     # Perform bitwise-NOT on value in register
     #     pass
 
-    # def alu_handle_or(self, a, b):
-    #     # Perform bitwise-OR on value in register
-    #     pass
+    def alu_handle_or(self, reg_a, reg_b):
+        # print(f'OR R{reg_a}, R{reg_b}')
+        self.reg[reg_a] |= self.reg[reg_b]
 
     # def alu_handle_shl(self, a, b):
     #     # Shift value in registerA left by number of bits specified in registerB, filling low bits with 0
