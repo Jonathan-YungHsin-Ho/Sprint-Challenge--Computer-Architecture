@@ -248,19 +248,31 @@ class CPU:
 
     def handle_jge(self, reg_num, _):
         # print(f'JGE R{reg_num}')
-        pass
+        if self.fl & 1 or self.fl & 0b10:
+            self.handle_jmp(reg_num, _)
+        else:
+            self.pc += 2
 
     def handle_jgt(self, reg_num, _):
         # print(f'JGT R{reg_num}')
-        pass
+        if self.fl & 0b10:
+            self.handle_jmp(reg_num, _)
+        else:
+            self.pc += 2
 
     def handle_jle(self, reg_num, _):
         # print(f'JLE R{reg_num}')
-        pass
+        if self.fl & 1 or self.fl & 0b100:
+            self.handle_jmp(reg_num, _)
+        else:
+            self.pc += 2
 
     def handle_jlt(self, a, b):
         # print(f'JLT R{reg_num}')
-        pass
+        if self.fl & 0b100:
+            self.handle_jmp(reg_num, _)
+        else:
+            self.pc += 2
 
     def handle_jmp(self, reg_num, _):
         # print(f'JMP R{reg_num}')
