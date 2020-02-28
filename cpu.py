@@ -24,7 +24,7 @@ LDI = 0b10000010
 # MOD = 0b10100100
 MUL = 0b10100010
 NOP = 0b00000000
-# NOT = 0b01101001
+NOT = 0b01101001
 OR = 0b10101010
 POP = 0b01000110
 PRA = 0b01001000
@@ -35,7 +35,7 @@ RET = 0b00010001
 # SHR = 0b10101101
 ST = 0b10000100
 SUB = 0b10100001
-# XOR = 0b10101011
+XOR = 0b10101011
 
 IM = 5
 IS = 6
@@ -83,12 +83,12 @@ class CPU:
             INC: self.alu_handle_inc,
             # MOD: self.alu_handle_mod,
             MUL: self.alu_handle_mul,
-            # NOT: self.alu_handle_not,
-            # OR: self.alu_handle_or,
+            NOT: self.alu_handle_not,
+            OR: self.alu_handle_or,
             # SHL: self.alu_handle_shl,
             # SHR: self.alu_handle_shr,
             SUB: self.alu_handle_sub,
-            # XOR: self.alu_handle_xor,
+            XOR: self.alu_handle_xor,
         }
 
     def ram_read(self, mar):
@@ -379,9 +379,9 @@ class CPU:
         # print(f'MUL R{reg_a}, R{reg_b}')
         self.reg[reg_a] *= self.reg[reg_b]
 
-    # def alu_handle_not(self, a, b):
-    #     # Perform bitwise-NOT on value in register
-    #     pass
+    def alu_handle_not(self, reg_num, _):
+        # print(f'NOT R{reg_num}')
+        self.reg[reg_num] = ~self.reg[reg_num]
 
     def alu_handle_or(self, reg_a, reg_b):
         # print(f'OR R{reg_a}, R{reg_b}')
@@ -399,6 +399,6 @@ class CPU:
         # print(f'SUB R{reg_a}, R{reg_b}')
         self.reg[reg_a] -= self.reg[reg_b]
 
-    # def alu_handle_xor(self, a, b):
-    #     # Perform bitwise-XOR between values in registerA and registerB, storing result in registerA
-    #     pass
+    def alu_handle_xor(self, reg_a, reg_b):
+        # print(f'XOR R{reg_a}, R{reg_b}')
+        self.reg[reg_a] ^= self.reg[reg_b]
