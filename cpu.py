@@ -156,12 +156,13 @@ class CPU:
     def timer_interrupt(self):
         seconds_elapsed = (datetime.now() - self.start_time).total_seconds()
         if seconds_elapsed >= 1:
-            self.reg[IS] |= 0b00000001
+            self.reg[IS] |= 1
             self.start_time = datetime.now()
 
     def keyboard_interrupt(self):
-        # print(msvcrt.getch())
-        pass
+        if msvcrt.kbhit():
+            self.reg[IS] |= 0b10
+            self.ram_write(ord(msvcrt.getwch()), 0xF4)
 
     def check_interrupts(self):
         if self.interrupts_enabled:
