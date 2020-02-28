@@ -267,7 +267,7 @@ class CPU:
         else:
             self.pc += 2
 
-    def handle_jlt(self, a, b):
+    def handle_jlt(self, reg_num, _):
         # print(f'JLT R{reg_num}')
         if self.fl & 0b100:
             self.handle_jmp(reg_num, _)
@@ -358,6 +358,7 @@ class CPU:
         self.reg[reg_num] -= 1
 
     def alu_handle_div(self, reg_a, reg_b):
+        # print(F'DIV R{reg_a}, R{reg_b}')
         if not self.reg[reg_b]:
             print('ERROR: Cannot divide by 0')
             self.handle_hlt()
@@ -369,6 +370,7 @@ class CPU:
         self.reg[reg_num] += 1
 
     def alu_handle_mod(self, reg_a, reg_b):
+        # print(f'MODE R{reg_a}, R{reg_b}')
         if not self.reg[reg_b]:
             print('ERROR: Cannot divide by 0')
             self.handle_hlt()
